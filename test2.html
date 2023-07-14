@@ -6,52 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A-frame test 2</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
-    <script id="link" type="text/html">
-      <a-entity class="link"
-        geometry="primitive: plane; height: 0.7; width: 0.7"
-        material="shader: flat; opacity: 0.9; src: #hs"
-        event-set__mouseenter="opacity: 0.8"
-        event-set__mouseleave="opacity: 0.3"
-        event-set__click="_target: #pano; _delay: 300; material.src: ${src}"
-        proxy-event="event: click; to: #image-360; as: fade"
-        sound="on: click; src: #click-sound"></a-entity>
-    </script>
     <script type="module" crossorigin src="/aframe/assets/test1-3cfb730f.js"></script>
+    <script type="module" crossorigin src="/aframe/assets/main-70982f8b.js"></script>
+    <link rel="stylesheet" href="/aframe/assets/index-929fb152.css">
   </head>
   <body>
+    <div class="fixed top-8 left-8 h-18 z-10">
+      <a href="/aframe/" class="py-2 px-4 border rounded-xl bg-gray-100">
+        HOME
+      </a>
+    </div>
     <a-scene>
       <a-assets>
+        <img id="gurudev" src="/aframe/assets/gurudev-d5511e41.jpg" alt="Srila Bhaktivedanta Narayana Goswami Maharaja">
         <img id="p1" src="/aframe/assets/bht1-2093c30b.jpg">
         <img id="p2" src="/aframe/assets/bht2-72445510.jpg">
-        <img id="hs" src="data:image/png;base64,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">
-        <audio id="bhajan" src="/aframe/audio/jayajayasundara.mp3" autoplay preload></audio>
-        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+        <img id="hs" src="/aframe/assets/arrow-05ec6e7f.png">
+        <audio id="bhajan" src="/aframe/audio/jayajayasundara.mp3" autoplay=true loop=true></audio>
+        <audio id="click-sound" crossorigin="anonymous" src="/aframe/audio/click.ogg"></audio>
       </a-assets>
       
-      <a-sky radius="10" id="pano" src="#p1" rotation="0 -130 0"></a-sky>
+      <a-sky radius="10" src="#p1" rotation="0 -130 0"></a-sky>
   
         <!-- <a-sound src="#bhajan" autoplay="true" position="-3 1 -4"></a-sound> -->
-        <!-- Image links. -->
-      <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
-        <a-entity template="src: #link" data-src="#p1"></a-entity>
-        <a-entity template="src: #link" data-src="#p2"></a-entity>
-      </a-entity>
+        <!-- hotspots. -->
+      <a-entity next-pano="src: #p1" position="2.562 -3.411 -7.450" rotation="-90 48.38 0"></a-entity>
+      <a-entity next-pano="src: #p2" position="6.12 -3.411 5.068" rotation="-90 -21.375 0"></a-entity>
 
       <!-- Camera + cursor. -->
       <a-entity movement-controls="fly: true" position="0 0 0">
-        <a-entity camera position="0 1.6 0" look-controls></a-entity>
+        <a-entity camera position="0 0 0" look-controls></a-entity>
         <a-entity cursor="rayOrigin:mouse"></a-entity>
-        <a-entity laser-controls="hand: right"></a-entity>
-        <a-entity laser-controls="hand: left"></a-entity>
+        <a-entity id="rightHand" laser-controls="hand: right"></a-entity>
       </a-entity>
         
     </a-scene>
     <!-- <script src="./aframe-inspector.min.js"></script> -->
-    <!-- <script type="module" src="/aframe/app.js"></script> -->
+    
     
   </body>
 </html>
