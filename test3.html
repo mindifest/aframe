@@ -5,10 +5,10 @@
     <link rel="icon" type="image/svg+xml" href="/aframe/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A-frame test 3</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script type="module" crossorigin src="/aframe/assets/test1-3cfb730f.js"></script>
-    <script type="module" crossorigin src="/aframe/assets/test2-797fcc93.js"></script>
-    <link rel="stylesheet" href="/aframe/assets/app-f4057d3a.css">
+    <script type="module" crossorigin src="/aframe/assets/test2-a168671f.js"></script>
+    <link rel="stylesheet" href="/aframe/assets/app-3fa4af33.css">
   </head>
   <body>
     <div class="fixed top-8 left-8 h-18 z-10">
@@ -18,10 +18,10 @@
     </div>
     <a-scene>
       <a-assets>
-        <img id="gurudev" src="/aframe/assets/gurudev-d5511e41.jpg" alt="Srila Bhaktivedanta Narayana Goswami Maharaja">
-        <img id="p1" src="/aframe/assets/bht1-2093c30b.jpg">
-        <img id="p2" src="/aframe/assets/bht2-72445510.jpg">
-        <img id="hs" src="/aframe/assets/arrow-05ec6e7f.png">
+        <img id="gurudev" src="/aframe/img/gurudev.jpg" alt="Srila Bhaktivedanta Narayana Goswami Maharaja">
+        <img id="p1" src="/aframe/img/bht_01.jpg">
+        <img id="p2" src="/aframe/img/bht_02.jpg">
+        <img id="hs" src="/aframe/img/arrow.png">
         <audio id="bhajan" src="/audio/jayajayasundara.mp3"></audio>
         <audio id="click-sound" crossorigin="anonymous" src="/audio/click.ogg"></audio>
         <audio id="round-done" crossorigin="anonymous" src="/audio/round.mp3"></audio>
@@ -39,6 +39,7 @@
         <a-entity camera position="0 0 0" look-controls></a-entity>
         <a-entity cursor="rayOrigin:mouse"></a-entity>
         <a-entity id="rightHand" laser-controls="hand: right"></a-entity>
+        <a-entity id="leftHand" laser-controls="hand: left"></a-entity>
       </a-entity>
 
       <a-plane
