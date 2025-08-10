@@ -34,8 +34,8 @@
       <!-- Camera + cursor. -->
       <a-entity position="0 -3.2 0">
           <a-camera look-controls position="0 0 0" fov="100"></a-camera>
-          <a-entity id="rightHandMeta" meta-touch-controls="hand: right"></a-entity>
-          <a-entity id="leftHandMeta" meta-touch-controls="hand: left"></a-entity>
+          <a-entity id="rightHandMeta" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
+          <a-entity id="leftHandMeta" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
           <a-entity id="rightHandVive" vive-controls="hand: right"></a-entity>
           <a-entity id="leftHandVive" vive-controls="hand: left"></a-entity>
       </a-entity>
@@ -50,7 +50,7 @@
           <a-text color="red" width="5" align="center" value="Srila Bhaktivedanta\nNarayana Goswami Maharaja" position="0.3 -0.1 0"></a-text>
           <a-text color="yellow" value="Japa:" position="0.9 -0.5 0"></a-text>
           <a-text id="chants" color="white" value="0/0" position="1.6 -0.5 0"></a-text>
-          <a-text id="deBug" color="white" value="" position="0 -0.7 0"></a-text>
+          <a-text id="deBug" color="white" value="" position="0 -0.7 0">deBug</a-text>
       </a-plane>
   </a-scene>
     <!-- <script src="./aframe-inspector.min.js"></script> -->
