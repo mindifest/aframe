@@ -2,12 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/aframe/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>A-frame test 2</title>
+    <title>A-frame test 3</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script type="module" crossorigin src="/aframe/assets/test2-a168671f.js"></script>
+    <script type="module" crossorigin src="/aframe/assets/test2-fe4c4039.js"></script>
     <link rel="modulepreload" crossorigin href="/aframe/assets/test1-3cfb730f.js">
+    <link rel="modulepreload" crossorigin href="/aframe/assets/test3-a168671f.js">
     <link rel="stylesheet" href="/aframe/assets/app-3fa4af33.css">
   </head>
   <body>
@@ -16,32 +17,42 @@
         HOME
       </a>
     </div>
-    <a-scene>
+    <a-scene scene>
       <a-assets>
-        <img id="gurudev" src="/aframe/img/gurudev.jpg" alt="Srila Bhaktivedanta Narayana Goswami Maharaja">
-        <img id="p1" src="/aframe/img/bht_01.jpg">
-        <img id="p2" src="/aframe/img/bht_02.jpg">
-        <img id="hs" src="/aframe/img/arrow.png">
-        <audio id="bhajan" src="/audio/jayajayasundara.mp3" autoplay=true loop=true></audio>
-        <audio id="click-sound" crossorigin="anonymous" src="audio/click.ogg"></audio>
+          <a-mixin id="btn" class="collidable"></a-mixin>
+          <img id="gurudev" src="/aframe/img/gurudev.jpg" alt="Srila Bhaktivedanta Narayana Goswami Maharaja">
+          <img id="p1" src="/aframe/img/bht_01.jpg">
+          <img id="p2" src="/aframe/img/bht_02.jpg">
+          <img id="hs" src="/aframe/img/arrow.png">
       </a-assets>
-      
-      <a-sky radius="10" src="#p1" rotation="1.25 -55 0"></a-sky>
-  
+      <a-sky radius="10" src="#p1" rotation="0 -130 0"></a-sky>
         <!-- <a-sound src="#bhajan" autoplay="true" position="-3 1 -4"></a-sound> -->
         <!-- hotspots. -->
       <a-entity next-pano="src: #p1" position="2.562 -3.411 -7.450" rotation="-90 48.38 0"></a-entity>
       <a-entity next-pano="src: #p2" position="6.12 -3.411 5.068" rotation="-90 -21.375 0"></a-entity>
-
+      
       <!-- Camera + cursor. -->
-      <a-entity movement-controls="fly: true" position="0 0 0">
-        <a-entity camera position="0 0 0" look-controls></a-entity>
-        <a-entity cursor="rayOrigin:mouse"></a-entity>
-        <a-entity id="rightHand" laser-controls="hand: right"></a-entity>
-        <a-entity id="leftHand" laser-controls="hand: left"></a-entity>
+      <a-entity position="0 -3.2 0">
+          <a-camera look-controls position="0 0 0" fov="100"></a-camera>
+          <a-entity id="rightHandMeta" meta-touch-controls="hand: right"></a-entity>
+          <a-entity id="leftHandMeta" meta-touch-controls="hand: left"></a-entity>
+          <a-entity id="rightHandVive" vive-controls="hand: right"></a-entity>
+          <a-entity id="leftHandVive" vive-controls="hand: left"></a-entity>
       </a-entity>
-        
-    </a-scene>
+      <a-plane
+          height="1.5"
+          width="5"
+          rotation="0 5 0"
+          position="2 3 -5"
+          material="color: black; opacity: 0.1; transparent: true">
+          <a-image position="-1.8 0 0" src="#gurudev"></a-image>
+          <a-text color="red" width="8" align="center" value="1921 - 2021" position="0.3 0.35 0"></a-text>
+          <a-text color="red" width="5" align="center" value="Srila Bhaktivedanta\nNarayana Goswami Maharaja" position="0.3 -0.1 0"></a-text>
+          <a-text color="yellow" value="Japa:" position="0.9 -0.5 0"></a-text>
+          <a-text id="chants" color="white" value="0/0" position="1.6 -0.5 0"></a-text>
+          <a-text id="deBug" color="white" value="" position="0 -0.7 0"></a-text>
+      </a-plane>
+  </a-scene>
     <!-- <script src="./aframe-inspector.min.js"></script> -->
     
     
