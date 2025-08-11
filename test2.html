@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A-frame test 3</title>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
-    <script type="module" crossorigin src="/aframe/assets/test2-fe4c4039.js"></script>
+    <script type="module" crossorigin src="/aframe/assets/test2-c097a9b6.js"></script>
     <link rel="modulepreload" crossorigin href="/aframe/assets/test1-3cfb730f.js">
     <link rel="modulepreload" crossorigin href="/aframe/assets/test3-a168671f.js">
     <link rel="stylesheet" href="/aframe/assets/app-3fa4af33.css">
@@ -17,7 +17,7 @@
         HOME
       </a>
     </div>
-    <a-scene scene>
+    <a-scene debug>
       <a-assets>
           <a-mixin id="btn" class="collidable"></a-mixin>
           <img id="gurudev" src="/aframe/img/gurudev.jpg" alt="Srila Bhaktivedanta Narayana Goswami Maharaja">
@@ -36,8 +36,6 @@
           <a-camera look-controls position="0 0 0" fov="100"></a-camera>
           <a-entity id="rightHandMeta" hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
           <a-entity id="leftHandMeta" hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc"></a-entity>
-          <a-entity id="rightHandVive" vive-controls="hand: right"></a-entity>
-          <a-entity id="leftHandVive" vive-controls="hand: left"></a-entity>
       </a-entity>
       <a-plane
           height="1.5"
@@ -50,7 +48,7 @@
           <a-text color="red" width="5" align="center" value="Srila Bhaktivedanta\nNarayana Goswami Maharaja" position="0.3 -0.1 0"></a-text>
           <a-text color="yellow" value="Japa:" position="0.9 -0.5 0"></a-text>
           <a-text id="chants" color="white" value="0/0" position="1.6 -0.5 0"></a-text>
-          <a-text id="deBug" color="white" value="" position="0 -0.7 0">deBug</a-text>
+          <a-text id="deBug" color="red" value="deBug" position="0 -0.7 0"></a-text>
       </a-plane>
   </a-scene>
     <!-- <script src="./aframe-inspector.min.js"></script> -->
