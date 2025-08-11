@@ -1,15 +1,87 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Test 7 Babylon.Js</title>
-    <script type="module" crossorigin src="/aframe/assets/test7-ebd47ade.js"></script>
-    <link rel="modulepreload" crossorigin href="/aframe/assets/test1-3cfb730f.js">
-    <link rel="modulepreload" crossorigin href="/aframe/assets/babylon-fe31a0ff.js">
-    <link rel="stylesheet" href="/aframe/assets/app-6d623cc2.css">
-  </head>
-  <body>
-    <canvas id="pano" class="w-full min-h-screen"></div>
-    
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js WebXR with Skybox</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/vr/WebXR.js"></script>
+</head>
+<body>
+    <script>
+        let scene, camera, renderer, cube, skybox, controller;
+        
+        // Set up the scene
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // Create the renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Set the camera position
+        camera.position.z = 0;
+
+        // Add lighting
+        const light = new THREE.AmbientLight(0x404040, 1.5); // Ambient light
+        scene.add(light);
+
+        // Add skybox (360-degree panoramic image)
+        const textureLoader = new THREE.TextureLoader();
+        const skyTexture = textureLoader.load('/img/bht_01.jpg'); // Replace with your own image
+        const skyMaterial = new THREE.MeshBasicMaterial({ map: skyTexture, side: THREE.DoubleSide });
+        const skyGeometry = new THREE.SphereGeometry(500, 60, 40);
+        skybox = new THREE.Mesh(skyGeometry, skyMaterial);
+        scene.add(skybox);
+        skybox.rotation.x = Math.PI; // Rotate sphere to face the inside of the camera
+
+        // Add a simple cube to interact with
+        // const geometry = new THREE.BoxGeometry(1, 1, 1);
+        // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        // cube = new THREE.Mesh(geometry, material);
+        // cube.position.set(0, 1, -3);
+        // scene.add(cube);
+
+        // WebXR: Enable VR
+        const xr = renderer.xr;
+        document.body.appendChild(renderer.domElement);
+        navigator.xr.isSessionSupported('immersive-vr').then((supported) => {
+            if (supported) {
+                document.body.addEventListener('click', onClick);
+            }
+        });
+
+        // Handle WebXR hand controls
+        controller = renderer.xr.getController(0);
+        scene.add(controller);
+
+        // Update the controller position and interaction with the cube
+        controller.addEventListener('selectstart', () => {
+            cube.rotation.x += 0.1;
+            cube.rotation.y += 0.1;
+        });
+
+        // Animation loop to render the scene
+        function animate() {
+            renderer.setAnimationLoop(animate);
+            renderer.render(scene, camera);
+        }
+
+        // Start VR session on click
+        function onClick() {
+            navigator.xr.requestSession('immersive-vr').then((session) => {
+                renderer.xr.enabled = true;
+                renderer.xr.setSession(session);
+            });
+        }
+
+        // Call the initialization function
+        animate();
+    </script>
+</body>
 </html>

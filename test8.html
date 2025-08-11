@@ -1,15 +1,94 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Test 8 Babylon.Js</title>
-    <script type="module" crossorigin src="/aframe/assets/test8-76d4412c.js"></script>
-    <link rel="modulepreload" crossorigin href="/aframe/assets/test1-3cfb730f.js">
-    <link rel="modulepreload" crossorigin href="/aframe/assets/babylon-fe31a0ff.js">
-    <link rel="stylesheet" href="/aframe/assets/app-6d623cc2.css">
-  </head>
-  <body>
-    <canvas id="pano" class="w-full min-h-screen"></div>
-    
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babylon.js with Rectangular Skybox</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; min-width: 100%; min-height: 100%; }
+    </style>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/babylon.xr.min.js"></script>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        // Get the canvas element
+        const canvas = document.getElementById('renderCanvas');
+
+        // Create the Babylon.js engine
+        const engine = new BABYLON.Engine(canvas, true);
+
+        // Create the scene
+        const scene = new BABYLON.Scene(engine);
+
+        // Set up the camera (ArcRotateCamera in this case)
+        const camera = new BABYLON.ArcRotateCamera('camera1', Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, true);
+
+        // Set up the WebXR experience (WebXR supports hand controls)
+        const xrHelper = scene.createDefaultXRExperienceAsync({
+            uiOptions: { sessionMode: 'immersive-vr' },
+            disableTeleportation: false, // Enable teleportation if needed
+        });
+
+        // Load the panoramic image as a rectangular texture
+        const texture = new BABYLON.Texture("/img/bht_01.jpg", scene); // Replace with your image URL
+
+        // Create a large sphere to map the panoramic image to
+        const skybox = BABYLON.MeshBuilder.CreateSphere("skybox", { diameter: 1000 }, scene);
+        const material = new BABYLON.StandardMaterial("skyboxMaterial", scene);
+        material.backFaceCulling = false; // Render inside of sphere
+        material.diffuseTexture = texture;
+        skybox.material = material;
+
+        // Rotate the sphere to face the camera inside (so that the image is visible inside the sphere)
+        skybox.rotation.x = Math.PI; 
+
+        // Create a simple cube for interaction
+        const cube = BABYLON.MeshBuilder.CreateBox('cube', { size: 2 }, scene);
+        cube.position.set(0, 1, -5);
+
+        // Lighting
+        const light = new BABYLON.HemisphericLight("light1", BABYLON.Vector3.Up(), scene);
+        light.intensity = 0.7;
+
+        // Start VR session
+        xrHelper.then(function (xr) {
+            xr.baseExperience.onStateChangedObservable.add(function (state) {
+                if (state === BABYLON.WebXRState.IN_XR) {
+                    console.log('Entered XR session');
+                } else {
+                    console.log('Exited XR session');
+                }
+            });
+        });
+
+        // Add event for hand control interaction
+        xrHelper.then(function (xr) {
+            xr.input.onControllerMeshLoadedObservable.add(function (controller) {
+                controller.onMeshLoadedObservable.add(function (mesh) {
+                    if (mesh.name === "leftController") {
+                        mesh.position.set(-2, 1, -5);
+                    }
+                    if (mesh.name === "rightController") {
+                        mesh.position.set(2, 1, -5);
+                    }
+                });
+            });
+        });
+
+        // Render loop
+        engine.runRenderLoop(function () {
+            scene.render();
+        });
+
+        // Resize the engine when the window size changes
+        window.addEventListener('resize', function () {
+            engine.resize();
+        });
+
+    </script>
+</body>
 </html>
